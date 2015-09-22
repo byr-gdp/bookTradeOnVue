@@ -1,32 +1,17 @@
 // vue、director 相关初始化
-
 var Vue = require('vue');
 var Router = require('director').Router;
 var router = new Router();
 var default_route = 'home';
 
+//调用Bmob模块
+// var Bmob = require("bmob");
+//初始化，第一个参数是Application_id，第二个参数是REST API Key
+Bmob.initialize("1fda623a4434d099f6426fd9bc403f7a", "2fcecbe28d9c431e0383af6e34e28baa");
+
 var app = new Vue(require('./views/app.vue'));
-// app 通过 app.vue 引入
 
-
-// var app = new Vue({
-// 	el: '#app',
-// 	data: {
-// 		message: 'Aloha!',
-
-// 		view: {
-// 			current_route: '',
-// 			previous_route: ''
-// 		},
-// 		routes: ['home', 'about', 'blog']
-// 	},
-// 	components: {
-// 		home: require('./home.vue'),
-// 		about: require('./about.vue'),
-// 		blog: require('./blog.vue')
-// 	}
-// })
-
+// 路由相关
 function toRoute(route) {
     window.location.hash = route;
     app.view.current_route = route;
@@ -46,20 +31,3 @@ router.configure({
 });
 
 router.init();
-
-// gameScore.set("score", 1337);
-// gameScore.save(null, {
-//   success: function(object) {
-//     alert("create object success, object id:"+object.id);
-//   },
-//   error: function(model, error) {
-//     alert("create object fail");
-//   }
-// });
-
-
-
-
-
-
-

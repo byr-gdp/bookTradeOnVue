@@ -2,7 +2,8 @@
 	<ul>
 		<li v-repeat="routes" v-on="click: goTo($value)">{{$value}}</li>
 	</ul>
-
+	isLogin: {{isLogin}} <br>
+	username: {{user.username}}
 	<div v-component="{{view.current_route}}"></div>
 </template>
 
@@ -15,6 +16,10 @@ module.exports = {
 			previous_route: null,
 		},
 		routes: ['home', 'login', 'signup', 'setting'],
+		isLogin: false,
+		user: {
+			username: '',
+		}
 	},
 	components: {
 		home:    require('./home.vue'),
@@ -24,7 +29,7 @@ module.exports = {
 	},
 	methods: {
 		goTo: function(page) {
-			this.view.current_route_main = page;
+			this.view.current_route = page;
 			window.location.hash = page;
 		},
 	}

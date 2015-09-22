@@ -10,6 +10,7 @@
   "author": "byr-gdp@github.com",
   "license": "ISC",
   "dependencies": {
+    "bmob": "^1.0.0",
     "bootstrap": "^3.3.5",
     "director": "^1.2.8",
     "vue": "^0.12.14",
