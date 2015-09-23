@@ -11069,11 +11069,38 @@
 	module.exports = {
 		data: function() {
 			return {
-
+				newBook: {
+					bookname: '',
+					desc:     '',
+					price:    0,
+					academy:  '',
+					seller:   '',
+					tel:      '',
+					qq:       ''
+				}
 			}
 		},
 		methods: {
-			
+			addNewBook: function() {
+				console.info('func addNewBook');
+				var Book = Bmob.Object.extend("Book");
+				var book = new Book();
+
+				// TO DO
+				// 保存前需验证数据
+
+				// 添加数据，第一个入口参数是Json数据
+				book.save(this.newBook, {
+					success: function(gameScore) {
+					// 添加成功
+						alert("success");
+					},
+					error: function(gameScore, error) {
+				    // 添加失败
+				    	alert("failed");
+				    }
+				});
+			},
 		}
 	}
 
@@ -11081,7 +11108,7 @@
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "home";
+	module.exports = "<div id=\"main\" class=\"container\">\n  <div class=\"row\">\n\t<div id=\"left\" class=\"col-sm-6 col-lg-3\">\n\t  <!-- 功能、新书 -->\n\t  <!-- <h3>功能区</h3> -->\n\t  <div class=\"fix\">\n\t    <div class=\"function\">\n\t      <div class=\"search input-group\">\n\t        <span class=\"input-group-addon\">搜索</span>\n\t        <input type=\"text\" class=\"form-control\" placeholder=\"请输入关键词\">\n\t      </div>\n\t    </div> \n\t    <hr>\n\n\t    <div class=\"new\" >\n\t      <!-- <h4>发布二手书</h4> -->\n\t      <form>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">书名</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.bookname\">\n\t          </div>\n\t        <br> \n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">描述</span>\n\t          <input type=\"textarea\" class=\"form-control\" v-model=\"newBook.desc\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">学院</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.academy\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">价格</span>\n\t          <input type=\"number\" class=\"form-control\" v-model=\"newBook.price\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">姓名</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.seller\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">电话</span>\n\t          <input type=\"tel\" class=\"form-control\" v-model=\"newBook.tel\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">Q Q</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.qq\">\n\t        </div>\n\t       \n\t          <!-- <input type=\"hidden\" v-model=\"newBook.id\" value=\"0\"> -->\n\t        <input type=\"hidden\" value=\"0\">\n\t        <br>\n\t        <input type=\"button\" value=\"提交\" class=\"btn btn-success btn-block\" v-on=\"click: addNewBook()\">\n\t        <!-- <button class=\"btn btn-success btn-block\" v-on=\"click: addNewBook()\">提交</button> -->\n\t      </form>\n\t    </div>\n\t  </div>\n\t</div>\n\t\n\t<!-- right part begin -->\n\n\t<div id=\"right\" class=\"col-sm-6 col-lg-9\">\n\n\t    <!-- 二手书详情 v－repeat -->\n\n\t    <!-- right part end-->\n\t</div>\n  </div>\n</div>";
 
 /***/ },
 /* 81 */
@@ -11627,7 +11654,7 @@
 /* 100 */
 /***/ function(module, exports) {
 
-	module.exports = "<ul>\n\t\t<li v-repeat=\"routes\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t</ul>\n\tisLogin: {{isLogin}} |||\n\tusername: {{user.username}}\n\t<div v-component=\"{{view.current_route}}\"></div>";
+	module.exports = "<ul>\n\t\t<li v-repeat=\"routes\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t</ul>\n\t<!-- <p>\n\t\tisLogin: {{isLogin}} |\n\t\tusername: {{user.username}}\n\t</p> -->\n\t<div v-component=\"{{view.current_route}}\"></div>";
 
 /***/ }
 /******/ ]);

@@ -2,8 +2,10 @@
 	<ul>
 		<li v-repeat="routes" v-on="click: goTo($value)">{{$value}}</li>
 	</ul>
-	isLogin: {{isLogin}} |||
-	username: {{user.username}}
+	<!-- <p>
+		isLogin: {{isLogin}} |
+		username: {{user.username}}
+	</p> -->
 	<div v-component="{{view.current_route}}"></div>
 </template>
 
