@@ -55,7 +55,7 @@
 	//初始化，第一个参数是Application_id，第二个参数是REST API Key
 	Bmob.initialize("1fda623a4434d099f6426fd9bc403f7a", "2fcecbe28d9c431e0383af6e34e28baa");
 
-	var app = new Vue(__webpack_require__(117));
+	var app = new Vue(__webpack_require__(76));
 
 	// 路由相关
 	function toRoute(route) {
@@ -71,6 +71,7 @@
 	       toRoute(route);
 	    });
 	});
+
 
 	router.configure({
 	    notfound: toDefaultRoute
@@ -11015,56 +11016,15 @@
 	}( true ? exports : window));
 
 /***/ },
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(118)
-	module.exports.template = __webpack_require__(137)
+	module.exports = __webpack_require__(77)
+	module.exports.template = __webpack_require__(100)
 
 
 /***/ },
-/* 118 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -11081,10 +11041,10 @@
 			}
 		},
 		components: {
-			home:    __webpack_require__(119),
-			login:   __webpack_require__(122),
-			signup:  __webpack_require__(125),
-			setting: __webpack_require__(128)		
+			home:    __webpack_require__(78),
+			login:   __webpack_require__(81),
+			signup:  __webpack_require__(84),
+			setting: __webpack_require__(91)		
 		},
 		methods: {
 			goTo: function(page) {
@@ -11095,15 +11055,15 @@
 	}
 
 /***/ },
-/* 119 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(120)
-	module.exports.template = __webpack_require__(121)
+	module.exports = __webpack_require__(79)
+	module.exports.template = __webpack_require__(80)
 
 
 /***/ },
-/* 120 */
+/* 79 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -11118,21 +11078,21 @@
 	}
 
 /***/ },
-/* 121 */
+/* 80 */
 /***/ function(module, exports) {
 
 	module.exports = "home";
 
 /***/ },
-/* 122 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(123)
-	module.exports.template = __webpack_require__(124)
+	module.exports = __webpack_require__(82)
+	module.exports.template = __webpack_require__(83)
 
 
 /***/ },
-/* 123 */
+/* 82 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -11176,189 +11136,31 @@
 	}
 
 /***/ },
-/* 124 */
+/* 83 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"container login\">\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">用户名</span>\n\t\t\t\t<input type=\"text\" class=\"form-control\" v-model=\"username\">\n\t\t\t</div>\n\t\t</div>\t\n\t\t<br>\n\t\t<div class=\"row\">\t\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">密码</span>\n\t\t\t\t<input type=\"password\" class=\"form-control\" v-model=\"password\">\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<button class=\"btn btn-success btn-block\" v-on=\"click: login()\">Log In</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>";
 
 /***/ },
-/* 125 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(138)
-	module.exports = __webpack_require__(126)
-	module.exports.template = __webpack_require__(127)
+	__webpack_require__(85)
+	module.exports = __webpack_require__(89)
+	module.exports.template = __webpack_require__(90)
 
 
 /***/ },
-/* 126 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		data: function() {
-			return {
-				username: '',
-				password: ''
-			}
-		},
-		methods: {
-			signup: function() {
-
-				var that = this;
-				var user = new Bmob.User();
-				console.info('username:' + this.username + ' pwd:' + this.password);
-
-				// to-do
-				// 此处应该验证输入的合法性
-
-
-
-				user.set("username", this.username);
-				user.set("password", this.password);
-
-				// 暂时不考虑邮箱
-				// user.set("email", "email@example.com");
-
-				user.signUp(null, {
-					success: function(user) {
-						// Hooray! Let them use the app now.
-						alert("success");
-
-						// 注册成功后应该变为“已登录”状态切跳转到首页
-						that.$root.isLogin = true;
-						that.$root.user.username = that.username;
-						that.$root.view.current_route = 'home';
-						window.location.hash = 'home';
-
-					},
-					error: function(user, error) {
-						// Show the error message somewhere and let the user try again.
-						alert("Error: " + error.code + " " + error.message);
-					}
-				});
-			}
-		}
-	}
-
-/***/ },
-/* 127 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"signup\">\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">用户名\n\t\t\t\t</span>\n\t\t\t\t<input type=\"text\" class=\"form-control\" v-model=\"username\">\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">\n\t\t\t\t\t密码\n\t\t\t\t</span>\n\t\t\t\t<input type=\"password\" class=\"form-control\" v-model=\"password\">\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\t\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<button class=\"btn btn-success btn-block\" v-on=\"click: signup()\">Sign Up</button>\n\t\t\t</div>\n\t\t</div>\t\n\t</div>";
-
-/***/ },
-/* 128 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(129)
-	module.exports.template = __webpack_require__(136)
-
-
-/***/ },
-/* 129 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-		data: function() {
-			return {
-				view: {
-					overlay: 'profile'
-				},
-				overlays: ['profile', 'manage']
-			}
-		},
-		components: {
-			profile: __webpack_require__(130),
-			manage:  __webpack_require__(133)
-		},
-		methods: {
-			goTo: function(page) {
-				this.view.overlay = page;
-			}
-		}
-	}
-
-/***/ },
-/* 130 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(131)
-	module.exports.template = __webpack_require__(132)
-
-
-/***/ },
-/* 131 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		data: function() {
-			return {
-
-			}
-		},
-		methods: {
-			
-		}
-	}
-
-/***/ },
-/* 132 */
-/***/ function(module, exports) {
-
-	module.exports = "profile";
-
-/***/ },
-/* 133 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(134)
-	module.exports.template = __webpack_require__(135)
-
-
-/***/ },
-/* 134 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		data: function() {
-			return {
-
-			}
-		},
-		methods: {
-			
-		}
-	}
-
-/***/ },
-/* 135 */
-/***/ function(module, exports) {
-
-	module.exports = "manage";
-
-/***/ },
-/* 136 */
-/***/ function(module, exports) {
-
-	module.exports = "setting\n\t<ul>\n\t\t<li v-repeat=\"overlays\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t</ul>\n\t<div v-component=\"{{view.overlay}}\"></div>";
-
-/***/ },
-/* 137 */
-/***/ function(module, exports) {
-
-	module.exports = "<ul>\n\t\t<li v-repeat=\"routes\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t</ul>\n\tisLogin: {{isLogin}} <br>\n\tusername: {{user.username}}\n\t<div v-component=\"{{view.current_route}}\"></div>";
-
-/***/ },
-/* 138 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(139);
+	var content = __webpack_require__(86);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(141)(content, {});
+	var update = __webpack_require__(88)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -11375,10 +11177,10 @@
 	}
 
 /***/ },
-/* 139 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(140)();
+	exports = module.exports = __webpack_require__(87)();
 	// imports
 
 
@@ -11389,7 +11191,7 @@
 
 
 /***/ },
-/* 140 */
+/* 87 */
 /***/ function(module, exports) {
 
 	/*
@@ -11445,7 +11247,7 @@
 
 
 /***/ },
-/* 141 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -11668,6 +11470,164 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 89 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		data: function() {
+			return {
+				username: '',
+				password: ''
+			}
+		},
+		methods: {
+			signup: function() {
+
+				var that = this;
+				var user = new Bmob.User();
+				console.info('username:' + this.username + ' pwd:' + this.password);
+
+				// to do
+				// 此处应该验证输入的合法性
+
+
+
+				user.set("username", this.username);
+				user.set("password", this.password);
+
+				// 暂时不考虑邮箱
+				// user.set("email", "email@example.com");
+
+				user.signUp(null, {
+					success: function(user) {
+						// Hooray! Let them use the app now.
+						alert("success");
+
+						// 注册成功后应该变为“已登录”状态切跳转到首页
+						that.$root.isLogin = true;
+						that.$root.user.username = that.username;
+						that.$root.view.current_route = 'home';
+						window.location.hash = 'home';
+
+					},
+					error: function(user, error) {
+						// Show the error message somewhere and let the user try again.
+						alert("Error: " + error.code + " " + error.message);
+					}
+				});
+			}
+		}
+	}
+
+/***/ },
+/* 90 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"signup\">\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">用户名\n\t\t\t\t</span>\n\t\t\t\t<input type=\"text\" class=\"form-control\" v-model=\"username\">\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">\n\t\t\t\t\t密码\n\t\t\t\t</span>\n\t\t\t\t<input type=\"password\" class=\"form-control\" v-model=\"password\">\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\t\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<button class=\"btn btn-success btn-block\" v-on=\"click: signup()\">Sign Up</button>\n\t\t\t</div>\n\t\t</div>\t\n\t</div>";
+
+/***/ },
+/* 91 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(92)
+	module.exports.template = __webpack_require__(99)
+
+
+/***/ },
+/* 92 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+		data: function() {
+			return {
+				view: {
+					overlay: 'profile'
+				},
+				overlays: ['profile', 'manage']
+			}
+		},
+		components: {
+			profile: __webpack_require__(93),
+			manage:  __webpack_require__(96)
+		},
+		methods: {
+			goTo: function(page) {
+				this.view.overlay = page;
+			}
+		}
+	}
+
+/***/ },
+/* 93 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(94)
+	module.exports.template = __webpack_require__(95)
+
+
+/***/ },
+/* 94 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		data: function() {
+			return {
+
+			}
+		},
+		methods: {
+			
+		}
+	}
+
+/***/ },
+/* 95 */
+/***/ function(module, exports) {
+
+	module.exports = "profile";
+
+/***/ },
+/* 96 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(97)
+	module.exports.template = __webpack_require__(98)
+
+
+/***/ },
+/* 97 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		data: function() {
+			return {
+
+			}
+		},
+		methods: {
+			
+		}
+	}
+
+/***/ },
+/* 98 */
+/***/ function(module, exports) {
+
+	module.exports = "manage";
+
+/***/ },
+/* 99 */
+/***/ function(module, exports) {
+
+	module.exports = "setting\n\t<ul>\n\t\t<li v-repeat=\"overlays\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t</ul>\n\t<div v-component=\"{{view.overlay}}\"></div>";
+
+/***/ },
+/* 100 */
+/***/ function(module, exports) {
+
+	module.exports = "<ul>\n\t\t<li v-repeat=\"routes\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t</ul>\n\tisLogin: {{isLogin}} |||\n\tusername: {{user.username}}\n\t<div v-component=\"{{view.current_route}}\"></div>";
 
 /***/ }
 /******/ ]);

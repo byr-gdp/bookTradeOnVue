@@ -26,6 +26,7 @@ app.routes.forEach(function (route) {
     });
 });
 
+
 router.configure({
     notfound: toDefaultRoute
 });

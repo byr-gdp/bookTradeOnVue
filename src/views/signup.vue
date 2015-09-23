@@ -45,7 +45,7 @@ module.exports = {
 			var user = new Bmob.User();
 			console.info('username:' + this.username + ' pwd:' + this.password);
 
-			// to-do
+			// to do
 			// 此处应该验证输入的合法性
 
 
