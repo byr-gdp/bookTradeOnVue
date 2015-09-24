@@ -11019,6 +11019,7 @@
 /* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(103)
 	module.exports = __webpack_require__(77)
 	module.exports.template = __webpack_require__(100)
 
@@ -11058,6 +11059,7 @@
 /* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(101)
 	module.exports = __webpack_require__(79)
 	module.exports.template = __webpack_require__(80)
 
@@ -11077,7 +11079,9 @@
 					seller:   '',
 					tel:      '',
 					qq:       ''
-				}
+				},
+				books: [],
+				temp: '',
 			}
 		},
 		methods: {
@@ -11097,10 +11101,44 @@
 					},
 					error: function(gameScore, error) {
 				    // 添加失败
-				    	alert("failed");
+				    	alert("failed" + error.message);
 				    }
 				});
 			},
+			getAllBooks: function() {
+				var that  = this;
+				var Book  = Bmob.Object.extend("Book");
+				var query = new Bmob.Query(Book);
+				// 查询所有数据
+				query.find({
+				  	success: function(results) {
+					    // alert("共查询到 " + results.length + " 条记录");
+					    // 循环处理查询到的数据
+				    	for (var i = 0; i < results.length; i++) {
+				    		var object = results[i];
+
+					    	// 从返回对象中取数据 
+					    	that.books.push(new Object());
+					    	that.books[i].bookname = object.get('bookname');
+					    	that.books[i].price    = object.get('price');
+					    	that.books[i].academy  = object.get('academy');
+					    	that.books[i].desc     = object.get('desc');
+					    	that.books[i].seller   = object.get('seller');
+					    	that.books[i].tel      = object.get('tel');
+					    	that.books[i].qq       = object.get('qq');
+					    	// console.info(object.get('bookname'));
+					      	// alert(object.id + ' - ' + object.get('bookname'));
+				    	}
+				  	},
+				  	error: function(error) {
+				    	alert("查询失败: " + error.code + " " + error.message);
+				  	}
+				});
+			}
+		},
+		attached: function() {
+			console.log('attached');
+			this.getAllBooks();
 		}
 	}
 
@@ -11108,7 +11146,7 @@
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"main\" class=\"container\">\n  <div class=\"row\">\n\t<div id=\"left\" class=\"col-sm-6 col-lg-3\">\n\t  <!-- 功能、新书 -->\n\t  <!-- <h3>功能区</h3> -->\n\t  <div class=\"fix\">\n\t    <div class=\"function\">\n\t      <div class=\"search input-group\">\n\t        <span class=\"input-group-addon\">搜索</span>\n\t        <input type=\"text\" class=\"form-control\" placeholder=\"请输入关键词\">\n\t      </div>\n\t    </div> \n\t    <hr>\n\n\t    <div class=\"new\" >\n\t      <!-- <h4>发布二手书</h4> -->\n\t      <form>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">书名</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.bookname\">\n\t          </div>\n\t        <br> \n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">描述</span>\n\t          <input type=\"textarea\" class=\"form-control\" v-model=\"newBook.desc\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">学院</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.academy\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">价格</span>\n\t          <input type=\"number\" class=\"form-control\" v-model=\"newBook.price\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">姓名</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.seller\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">电话</span>\n\t          <input type=\"tel\" class=\"form-control\" v-model=\"newBook.tel\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">Q Q</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.qq\">\n\t        </div>\n\t       \n\t          <!-- <input type=\"hidden\" v-model=\"newBook.id\" value=\"0\"> -->\n\t        <input type=\"hidden\" value=\"0\">\n\t        <br>\n\t        <input type=\"button\" value=\"提交\" class=\"btn btn-success btn-block\" v-on=\"click: addNewBook()\">\n\t        <!-- <button class=\"btn btn-success btn-block\" v-on=\"click: addNewBook()\">提交</button> -->\n\t      </form>\n\t    </div>\n\t  </div>\n\t</div>\n\t\n\t<!-- right part begin -->\n\n\t<div id=\"right\" class=\"col-sm-6 col-lg-9\">\n\n\t    <!-- 二手书详情 v－repeat -->\n\n\t    <!-- right part end-->\n\t</div>\n  </div>\n</div>";
+	module.exports = "<div id=\"main\" class=\"container\">\n  <div class=\"row\">\n\t<div id=\"left\" class=\"col-sm-6 col-lg-3\">\n\t  <!-- 功能、新书 -->\n\t  <!-- <h3>功能区</h3> -->\n\t  <div class=\"fix\">\n\t    <div class=\"function\">\n\t        <div class=\"search input-group\">\n\t        \t<span class=\"input-group-addon\">搜索</span>\n\t        \t<input type=\"text\" class=\"form-control\" placeholder=\"请输入关键词\">\n\t        </div>\n\t        <!-- <div>\n\t      \t\t<button class=\"btn btn-danger btn-block\" v-on=\"click: getAllBooks()\">query</button>\n\t        </div> -->\n\t    </div> \n\t    <hr>\n\n\t    <div class=\"new\" >\n\t      <!-- <h4>发布二手书</h4> -->\n\t      <form>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">书名</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.bookname\">\n\t          </div>\n\t        <br> \n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">描述</span>\n\t          <input type=\"textarea\" class=\"form-control\" v-model=\"newBook.desc\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">学院</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.academy\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">价格</span>\n\t          <input type=\"number\" class=\"form-control\" v-model=\"newBook.price\" number>\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">姓名</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.seller\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">电话</span>\n\t          <input type=\"tel\" class=\"form-control\" v-model=\"newBook.tel\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">Q Q</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.qq\">\n\t        </div>\n\t       \n\t          <!-- <input type=\"hidden\" v-model=\"newBook.id\" value=\"0\"> -->\n\t        <input type=\"hidden\" value=\"0\">\n\t        <br>\n\t        <input type=\"button\" value=\"提交\" class=\"btn btn-success btn-block\" v-on=\"click: addNewBook()\">\n\t        <!-- <button class=\"btn btn-success btn-block\" v-on=\"click: addNewBook()\">提交</button> -->\n\t      </form>\n\t    </div>\n\t  </div>\n\t</div>\n\t\n\t<!-- right part begin -->\n\n\t<div id=\"right\" class=\"col-sm-6 col-lg-9\">\n\t    <!-- 二手书详情 v－repeat -->\n\t\t<ul>\n            <li class=\"book col-md-4\" v-repeat=\"book in books\">\n                <div class=\"panel panel-primary\">\n                \t<div class=\"panel-heading\">\n                \t\t<div class=\"panel-title\">\n                  \t\t图书详情\n                \t\t</div>\n                \t</div>\n\n\t                <div class=\"panel-body\">\n\t\t\t\t\t\t<p class=\"book-info-self\">\n\t\t\t\t\t\t\t<span class=\"book-name\">{{book.bookname}}</span>&nbsp&nbsp\n\t\t                    <span class=\"academy\">{{book.academy}}</span>&nbsp&nbsp\n\t\t                    <span class=\"price\">{{book.price}} 元</span>\n\t\t\t\t\t\t</p>\n\t                    <p class=\"book-info-desc\">\n\t                    \t{{book.desc}}\n\t                    </p>\n\t                    <p class=\"book-info-seller\">\n\t                    \t<span class=\"book-seller\">{{book.seller}}</span>&nbsp&nbsp\n\t\t                    <!-- <span class=\"info\">TEL&nbsp</span> -->\n\t\t                    <span class=\"book-tel\">{{book.tel}}</span>&nbsp&nbsp\n\t\t                    <!-- <span class=\"info\">QQ&nbsp</span> -->\n\t\t                    <span class=\"book-qq\">{{book.qq}}</span>\n\t                    </p>\n\t                 \n\t                    <span class=\"text-muted pull-right\">发布于 1 分钟前</span>\n\t                </div>\n\t            </div>\n            </li>\n        </ul> \n\t    <!-- right part end-->\n\t</div>\n  </div>\n</div>";
 
 /***/ },
 /* 81 */
@@ -11655,6 +11693,86 @@
 /***/ function(module, exports) {
 
 	module.exports = "<ul>\n\t\t<li v-repeat=\"routes\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t</ul>\n\t<!-- <p>\n\t\tisLogin: {{isLogin}} |\n\t\tusername: {{user.username}}\n\t</p> -->\n\t<div v-component=\"{{view.current_route}}\"></div>";
+
+/***/ },
+/* 101 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(102);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(88)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./home.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./home.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(87)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "li {\n\tlist-style: none;\n}\n#main #right .book-info-self {\n\t/*max-height: 2em;*/\n}\n#main #right .book-name {\n\tfont-size: 20px;\n}\n#main #right .book-info-desc {\n\t/*border: 1px solid #ccc;*/\n\tmax-height: 3em;\n\t/*min-height: 1em;*/\n\theight: 3em;\n\toverflow: scroll;\n}\n\n#main #right .book-info-seller {\n\t/*border: 1px solid #ccc;*/\n\theight:     1.5em;\n\tline-height: 1.5em;\n\tmax-height: 1.5em;\n\toverflow:   scroll;\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 103 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(104);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(88)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./app.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./app.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 104 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(87)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "", ""]);
+
+	// exports
+
 
 /***/ }
 /******/ ]);

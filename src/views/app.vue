@@ -1,3 +1,6 @@
+<style>
+
+</style>
 <template>
 	<ul>
 		<li v-repeat="routes" v-on="click: goTo($value)">{{$value}}</li>
