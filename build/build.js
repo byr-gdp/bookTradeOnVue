@@ -11019,220 +11019,29 @@
 /* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(103)
-	module.exports = __webpack_require__(77)
-	module.exports.template = __webpack_require__(100)
+	__webpack_require__(77)
+	module.exports = __webpack_require__(81)
+	module.exports.template = __webpack_require__(104)
 
 
 /***/ },
 /* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = {
-		el: '#app',
-		data: {
-			view: {
-				current_route:  'home',
-				previous_route: null,
-			},
-			routes: ['home', 'login', 'signup', 'setting'],
-			isLogin: false,
-			user: {
-				username: '',
-			}
-		},
-		components: {
-			home:    __webpack_require__(78),
-			login:   __webpack_require__(81),
-			signup:  __webpack_require__(84),
-			setting: __webpack_require__(91)		
-		},
-		methods: {
-			goTo: function(page) {
-				this.view.current_route = page;
-				window.location.hash = page;
-			},
-		}
-	}
-
-/***/ },
-/* 78 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(101)
-	module.exports = __webpack_require__(79)
-	module.exports.template = __webpack_require__(80)
-
-
-/***/ },
-/* 79 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		data: function() {
-			return {
-				newBook: {
-					bookname: '',
-					desc:     '',
-					price:    0,
-					academy:  '',
-					seller:   '',
-					tel:      '',
-					qq:       ''
-				},
-				books: [],
-				temp: '',
-			}
-		},
-		methods: {
-			addNewBook: function() {
-				console.info('func addNewBook');
-				var Book = Bmob.Object.extend("Book");
-				var book = new Book();
-
-				// TO DO
-				// 保存前需验证数据
-
-				// 添加数据，第一个入口参数是Json数据
-				book.save(this.newBook, {
-					success: function(gameScore) {
-					// 添加成功
-						alert("success");
-					},
-					error: function(gameScore, error) {
-				    // 添加失败
-				    	alert("failed" + error.message);
-				    }
-				});
-			},
-			getAllBooks: function() {
-				var that  = this;
-				var Book  = Bmob.Object.extend("Book");
-				var query = new Bmob.Query(Book);
-				// 查询所有数据
-				query.find({
-				  	success: function(results) {
-					    // alert("共查询到 " + results.length + " 条记录");
-					    // 循环处理查询到的数据
-				    	for (var i = 0; i < results.length; i++) {
-				    		var object = results[i];
-
-					    	// 从返回对象中取数据 
-					    	that.books.push(new Object());
-					    	that.books[i].bookname = object.get('bookname');
-					    	that.books[i].price    = object.get('price');
-					    	that.books[i].academy  = object.get('academy');
-					    	that.books[i].desc     = object.get('desc');
-					    	that.books[i].seller   = object.get('seller');
-					    	that.books[i].tel      = object.get('tel');
-					    	that.books[i].qq       = object.get('qq');
-					    	// console.info(object.get('bookname'));
-					      	// alert(object.id + ' - ' + object.get('bookname'));
-				    	}
-				  	},
-				  	error: function(error) {
-				    	alert("查询失败: " + error.code + " " + error.message);
-				  	}
-				});
-			}
-		},
-		attached: function() {
-			console.log('attached');
-			this.getAllBooks();
-		}
-	}
-
-/***/ },
-/* 80 */
-/***/ function(module, exports) {
-
-	module.exports = "<div id=\"main\" class=\"container\">\n  <div class=\"row\">\n\t<div id=\"left\" class=\"col-sm-6 col-lg-3\">\n\t  <!-- 功能、新书 -->\n\t  <!-- <h3>功能区</h3> -->\n\t  <div class=\"fix\">\n\t    <div class=\"function\">\n\t        <div class=\"search input-group\">\n\t        \t<span class=\"input-group-addon\">搜索</span>\n\t        \t<input type=\"text\" class=\"form-control\" placeholder=\"请输入关键词\">\n\t        </div>\n\t        <!-- <div>\n\t      \t\t<button class=\"btn btn-danger btn-block\" v-on=\"click: getAllBooks()\">query</button>\n\t        </div> -->\n\t    </div> \n\t    <hr>\n\n\t    <div class=\"new\" >\n\t      <!-- <h4>发布二手书</h4> -->\n\t      <form>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">书名</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.bookname\">\n\t          </div>\n\t        <br> \n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">描述</span>\n\t          <input type=\"textarea\" class=\"form-control\" v-model=\"newBook.desc\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">学院</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.academy\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">价格</span>\n\t          <input type=\"number\" class=\"form-control\" v-model=\"newBook.price\" number>\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">姓名</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.seller\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">电话</span>\n\t          <input type=\"tel\" class=\"form-control\" v-model=\"newBook.tel\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">Q Q</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.qq\">\n\t        </div>\n\t       \n\t          <!-- <input type=\"hidden\" v-model=\"newBook.id\" value=\"0\"> -->\n\t        <input type=\"hidden\" value=\"0\">\n\t        <br>\n\t        <input type=\"button\" value=\"提交\" class=\"btn btn-success btn-block\" v-on=\"click: addNewBook()\">\n\t        <!-- <button class=\"btn btn-success btn-block\" v-on=\"click: addNewBook()\">提交</button> -->\n\t      </form>\n\t    </div>\n\t  </div>\n\t</div>\n\t\n\t<!-- right part begin -->\n\n\t<div id=\"right\" class=\"col-sm-6 col-lg-9\">\n\t    <!-- 二手书详情 v－repeat -->\n\t\t<ul>\n            <li class=\"book col-md-4\" v-repeat=\"book in books\">\n                <div class=\"panel panel-primary\">\n                \t<div class=\"panel-heading\">\n                \t\t<div class=\"panel-title\">\n                  \t\t图书详情\n                \t\t</div>\n                \t</div>\n\n\t                <div class=\"panel-body\">\n\t\t\t\t\t\t<p class=\"book-info-self\">\n\t\t\t\t\t\t\t<span class=\"book-name\">{{book.bookname}}</span>&nbsp&nbsp\n\t\t                    <span class=\"academy\">{{book.academy}}</span>&nbsp&nbsp\n\t\t                    <span class=\"price\">{{book.price}} 元</span>\n\t\t\t\t\t\t</p>\n\t                    <p class=\"book-info-desc\">\n\t                    \t{{book.desc}}\n\t                    </p>\n\t                    <p class=\"book-info-seller\">\n\t                    \t<span class=\"book-seller\">{{book.seller}}</span>&nbsp&nbsp\n\t\t                    <!-- <span class=\"info\">TEL&nbsp</span> -->\n\t\t                    <span class=\"book-tel\">{{book.tel}}</span>&nbsp&nbsp\n\t\t                    <!-- <span class=\"info\">QQ&nbsp</span> -->\n\t\t                    <span class=\"book-qq\">{{book.qq}}</span>\n\t                    </p>\n\t                 \n\t                    <span class=\"text-muted pull-right\">发布于 1 分钟前</span>\n\t                </div>\n\t            </div>\n            </li>\n        </ul> \n\t    <!-- right part end-->\n\t</div>\n  </div>\n</div>";
-
-/***/ },
-/* 81 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(82)
-	module.exports.template = __webpack_require__(83)
-
-
-/***/ },
-/* 82 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		data: function() {
-			return {
-				username: '',
-				password: ''
-			}
-		},
-		methods: {
-			login: function() {
-				var that = this;
-				var name = that.username;
-				var pwd  = that.password;
-
-				// to do
-				// 验证输入合法性
-
-
-				Bmob.User.logIn(name, pwd, {
-					success: function(user) {
-						// Do stuff after successful login.
-						alert("login success");
-						// console.info(JSON.stringify(user));
-
-						// 登陆验证成功后，切换为“已登录状态”切跳转到首页
-						// 这些方法可以提练出来
-						that.$root.isLogin            = true;
-						that.$root.user.username      = name;
-						that.$root.view.current_route = 'home';
-						window.location.hash          = 'home';
-
-					},
-					error: function(user, error) {
-						// The login failed. Check error to see why.
-						alert("login failed");
-					}
-				});
-			}
-		}
-	}
-
-/***/ },
-/* 83 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"container login\">\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">用户名</span>\n\t\t\t\t<input type=\"text\" class=\"form-control\" v-model=\"username\">\n\t\t\t</div>\n\t\t</div>\t\n\t\t<br>\n\t\t<div class=\"row\">\t\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">密码</span>\n\t\t\t\t<input type=\"password\" class=\"form-control\" v-model=\"password\">\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<button class=\"btn btn-success btn-block\" v-on=\"click: login()\">Log In</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>";
-
-/***/ },
-/* 84 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(85)
-	module.exports = __webpack_require__(89)
-	module.exports.template = __webpack_require__(90)
-
-
-/***/ },
-/* 85 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(86);
+	var content = __webpack_require__(78);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(88)(content, {});
+	var update = __webpack_require__(80)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./signup.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./signup.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./app.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./app.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -11242,21 +11051,21 @@
 	}
 
 /***/ },
-/* 86 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(87)();
+	exports = module.exports = __webpack_require__(79)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".signup {\n\tposition: absolute;\n\ttop: 40%;\n}", ""]);
+	exports.push([module.id, "", ""]);
 
 	// exports
 
 
 /***/ },
-/* 87 */
+/* 79 */
 /***/ function(module, exports) {
 
 	/*
@@ -11312,7 +11121,7 @@
 
 
 /***/ },
-/* 88 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -11537,7 +11346,283 @@
 
 
 /***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+		el: '#app',
+		data: {
+			view: {
+				current_route:  'home',
+				previous_route: null,
+			},
+			routes: ['home', 'login', 'signup', 'setting'],
+			isLogin: false,
+			user: {
+				username: '',
+			}
+		},
+		computed: {
+			greeting: function() {
+				return this.user.username + "，欢迎您"
+			}
+		},
+		components: {
+			home:    __webpack_require__(82),
+			login:   __webpack_require__(87),
+			signup:  __webpack_require__(90),
+			setting: __webpack_require__(95)		
+		},
+		methods: {
+			goTo: function(page) {
+				this.view.current_route = page;
+				window.location.hash = page;
+			},
+		}
+	}
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(83)
+	module.exports = __webpack_require__(85)
+	module.exports.template = __webpack_require__(86)
+
+
+/***/ },
+/* 83 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(84);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(80)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./home.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./home.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(79)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "li {\n\tlist-style: none;\n}\n#main #right .book-info-self {\n\t/*max-height: 2em;*/\n}\n#main #right .book-name {\n\tfont-size: 20px;\n}\n#main #right .book-info-desc {\n\t/*border: 1px solid #ccc;*/\n\tmax-height: 3em;\n\t/*min-height: 1em;*/\n\theight: 3em;\n\toverflow: scroll;\n}\n\n#main #right .book-info-seller {\n\t/*border: 1px solid #ccc;*/\n\theight:     1.5em;\n\tline-height: 1.5em;\n\tmax-height: 1.5em;\n\toverflow:   scroll;\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 85 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		data: function() {
+			return {
+				newBook: {
+					bookname: '',
+					desc:     '',
+					price:    0,
+					academy:  '',
+					seller:   '',
+					tel:      '',
+					qq:       ''
+				},
+				books: [],
+				temp: '',
+			}
+		},
+		methods: {
+			addNewBook: function() {
+				console.info('func addNewBook');
+				var Book = Bmob.Object.extend("Book");
+				var book = new Book();
+
+				// TO DO
+				// 保存前需验证数据
+
+				// 添加数据，第一个入口参数是Json数据
+				book.save(this.newBook, {
+					success: function(gameScore) {
+					// 添加成功
+						alert("success");
+					},
+					error: function(gameScore, error) {
+				    // 添加失败
+				    	alert("failed" + error.message);
+				    }
+				});
+			},
+			getAllBooks: function() {
+				var that  = this;
+				var Book  = Bmob.Object.extend("Book");
+				var query = new Bmob.Query(Book);
+				// 查询所有数据
+				query.find({
+				  	success: function(results) {
+					    // alert("共查询到 " + results.length + " 条记录");
+					    // 循环处理查询到的数据
+				    	for (var i = 0; i < results.length; i++) {
+				    		var object = results[i];
+
+					    	// 从返回对象中取数据 
+					    	that.books.push(new Object());
+					    	that.books[i].bookname = object.get('bookname');
+					    	that.books[i].price    = object.get('price');
+					    	that.books[i].academy  = object.get('academy');
+					    	that.books[i].desc     = object.get('desc');
+					    	that.books[i].seller   = object.get('seller');
+					    	that.books[i].tel      = object.get('tel');
+					    	that.books[i].qq       = object.get('qq');
+					    	// console.info(object.get('bookname'));
+					      	// alert(object.id + ' - ' + object.get('bookname'));
+				    	}
+				  	},
+				  	error: function(error) {
+				    	alert("查询失败: " + error.code + " " + error.message);
+				  	}
+				});
+			}
+		},
+		attached: function() {
+			console.log('attached');
+			this.getAllBooks();
+		}
+	}
+
+/***/ },
+/* 86 */
+/***/ function(module, exports) {
+
+	module.exports = "<div id=\"main\" class=\"container\">\n  <div class=\"row\">\n\t<div id=\"left\" class=\"col-sm-6 col-lg-3\">\n\t  <!-- 功能、新书 -->\n\t  <!-- <h3>功能区</h3> -->\n\t  <div class=\"fix\">\n\t    <div class=\"function\">\n\t        <div class=\"search input-group\">\n\t        \t<span class=\"input-group-addon\">搜索</span>\n\t        \t<input type=\"text\" class=\"form-control\" placeholder=\"请输入关键词\">\n\t        </div>\n\t        <!-- <div>\n\t      \t\t<button class=\"btn btn-danger btn-block\" v-on=\"click: getAllBooks()\">query</button>\n\t        </div> -->\n\t    </div> \n\t    <hr>\n\n\t    <div class=\"new\" >\n\t      <!-- <h4>发布二手书</h4> -->\n\t      <form>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">书名</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.bookname\">\n\t          </div>\n\t        <br> \n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">描述</span>\n\t          <input type=\"textarea\" class=\"form-control\" v-model=\"newBook.desc\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">学院</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.academy\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">价格</span>\n\t          <input type=\"number\" class=\"form-control\" v-model=\"newBook.price\" number>\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">姓名</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.seller\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">电话</span>\n\t          <input type=\"tel\" class=\"form-control\" v-model=\"newBook.tel\">\n\t        </div>\n\t        <br>\n\t        <div class=\"input-group\">\n\t          <span class=\"input-group-addon\">Q Q</span>\n\t          <input type=\"text\" class=\"form-control\" v-model=\"newBook.qq\">\n\t        </div>\n\t       \n\t          <!-- <input type=\"hidden\" v-model=\"newBook.id\" value=\"0\"> -->\n\t        <input type=\"hidden\" value=\"0\">\n\t        <br>\n\t        <input type=\"button\" value=\"提交\" class=\"btn btn-success btn-block\" v-on=\"click: addNewBook()\">\n\t        <!-- <button class=\"btn btn-success btn-block\" v-on=\"click: addNewBook()\">提交</button> -->\n\t      </form>\n\t    </div>\n\t  </div>\n\t</div>\n\t\n\t<!-- right part begin -->\n\n\t<div id=\"right\" class=\"col-sm-6 col-lg-9\">\n\t    <!-- 二手书详情 v－repeat -->\n\t\t<ul>\n            <li class=\"book col-md-4\" v-repeat=\"book in books\">\n                <div class=\"panel panel-primary\">\n                \t<div class=\"panel-heading\">\n                \t\t<div class=\"panel-title\">\n                  \t\t图书详情\n                \t\t</div>\n                \t</div>\n\n\t                <div class=\"panel-body\">\n\t\t\t\t\t\t<p class=\"book-info-self\">\n\t\t\t\t\t\t\t<span class=\"book-name\">{{book.bookname}}</span>&nbsp&nbsp\n\t\t                    <span class=\"academy\">{{book.academy}}</span>&nbsp&nbsp\n\t\t                    <span class=\"price\">{{book.price}} 元</span>\n\t\t\t\t\t\t</p>\n\t                    <p class=\"book-info-desc\">\n\t                    \t{{book.desc}}\n\t                    </p>\n\t                    <p class=\"book-info-seller\">\n\t                    \t<span class=\"book-seller\">{{book.seller}}</span>&nbsp&nbsp\n\t\t                    <!-- <span class=\"info\">TEL&nbsp</span> -->\n\t\t                    <span class=\"book-tel\">{{book.tel}}</span>&nbsp&nbsp\n\t\t                    <!-- <span class=\"info\">QQ&nbsp</span> -->\n\t\t                    <span class=\"book-qq\">{{book.qq}}</span>\n\t                    </p>\n\t                 \n\t                    <span class=\"text-muted pull-right\">发布于 1 分钟前</span>\n\t                </div>\n\t            </div>\n            </li>\n        </ul> \n\t    <!-- right part end-->\n\t</div>\n  </div>\n</div>";
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(88)
+	module.exports.template = __webpack_require__(89)
+
+
+/***/ },
+/* 88 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		data: function() {
+			return {
+				username: '',
+				password: ''
+			}
+		},
+		methods: {
+			login: function() {
+				var that = this;
+				var name = that.username;
+				var pwd  = that.password;
+
+				// to do
+				// 验证输入合法性
+
+
+				Bmob.User.logIn(name, pwd, {
+					success: function(user) {
+						// Do stuff after successful login.
+						alert("login success");
+						// console.info(JSON.stringify(user));
+
+						// 登陆验证成功后，切换为“已登录状态”切跳转到首页
+						// 这些方法可以提练出来
+						that.$root.isLogin            = true;
+						that.$root.user.username      = name;
+						that.$root.view.current_route = 'home';
+						window.location.hash          = 'home';
+
+					},
+					error: function(user, error) {
+						// The login failed. Check error to see why.
+						alert("login failed");
+					}
+				});
+			}
+		}
+	}
+
+/***/ },
 /* 89 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"container login\">\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">用户名</span>\n\t\t\t\t<input type=\"text\" class=\"form-control\" v-model=\"username\">\n\t\t\t</div>\n\t\t</div>\t\n\t\t<br>\n\t\t<div class=\"row\">\t\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">密码</span>\n\t\t\t\t<input type=\"password\" class=\"form-control\" v-model=\"password\">\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<button class=\"btn btn-success btn-block\" v-on=\"click: login()\">Log In</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>";
+
+/***/ },
+/* 90 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(91)
+	module.exports = __webpack_require__(93)
+	module.exports.template = __webpack_require__(94)
+
+
+/***/ },
+/* 91 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(92);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(80)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./signup.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./signup.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 92 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(79)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".signup {\n\tposition: absolute;\n\ttop: 40%;\n}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 93 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -11587,21 +11672,21 @@
 	}
 
 /***/ },
-/* 90 */
+/* 94 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"signup\">\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">用户名\n\t\t\t\t</span>\n\t\t\t\t<input type=\"text\" class=\"form-control\" v-model=\"username\">\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<span class=\"input-group-addon\">\n\t\t\t\t\t密码\n\t\t\t\t</span>\n\t\t\t\t<input type=\"password\" class=\"form-control\" v-model=\"password\">\n\t\t\t</div>\n\t\t</div>\n\t\t<br>\t\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-md-4 col-md-offset-4 input-group\">\n\t\t\t\t<button class=\"btn btn-success btn-block\" v-on=\"click: signup()\">Sign Up</button>\n\t\t\t</div>\n\t\t</div>\t\n\t</div>";
 
 /***/ },
-/* 91 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(92)
-	module.exports.template = __webpack_require__(99)
+	module.exports = __webpack_require__(96)
+	module.exports.template = __webpack_require__(103)
 
 
 /***/ },
-/* 92 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -11614,8 +11699,8 @@
 			}
 		},
 		components: {
-			profile: __webpack_require__(93),
-			manage:  __webpack_require__(96)
+			profile: __webpack_require__(97),
+			manage:  __webpack_require__(100)
 		},
 		methods: {
 			goTo: function(page) {
@@ -11625,154 +11710,74 @@
 	}
 
 /***/ },
-/* 93 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(94)
-	module.exports.template = __webpack_require__(95)
-
-
-/***/ },
-/* 94 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		data: function() {
-			return {
-
-			}
-		},
-		methods: {
-			
-		}
-	}
-
-/***/ },
-/* 95 */
-/***/ function(module, exports) {
-
-	module.exports = "profile";
-
-/***/ },
-/* 96 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(97)
-	module.exports.template = __webpack_require__(98)
-
-
-/***/ },
 /* 97 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = {
-		data: function() {
-			return {
+	module.exports = __webpack_require__(98)
+	module.exports.template = __webpack_require__(99)
 
-			}
-		},
-		methods: {
-			
-		}
-	}
 
 /***/ },
 /* 98 */
 /***/ function(module, exports) {
 
-	module.exports = "manage";
+	module.exports = {
+		data: function() {
+			return {
+
+			}
+		},
+		methods: {
+			
+		}
+	}
 
 /***/ },
 /* 99 */
 /***/ function(module, exports) {
 
-	module.exports = "setting\n\t<ul>\n\t\t<li v-repeat=\"overlays\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t</ul>\n\t<div v-component=\"{{view.overlay}}\"></div>";
+	module.exports = "profile";
 
 /***/ },
 /* 100 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<ul>\n\t\t<li v-repeat=\"routes\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t</ul>\n\t<!-- <p>\n\t\tisLogin: {{isLogin}} |\n\t\tusername: {{user.username}}\n\t</p> -->\n\t<div v-component=\"{{view.current_route}}\"></div>";
+	module.exports = __webpack_require__(101)
+	module.exports.template = __webpack_require__(102)
+
 
 /***/ },
 /* 101 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
+	module.exports = {
+		data: function() {
+			return {
 
-	// load the styles
-	var content = __webpack_require__(102);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(88)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./home.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./home.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
+			}
+		},
+		methods: {
+			
 		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
 	}
 
 /***/ },
 /* 102 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	exports = module.exports = __webpack_require__(87)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "li {\n\tlist-style: none;\n}\n#main #right .book-info-self {\n\t/*max-height: 2em;*/\n}\n#main #right .book-name {\n\tfont-size: 20px;\n}\n#main #right .book-info-desc {\n\t/*border: 1px solid #ccc;*/\n\tmax-height: 3em;\n\t/*min-height: 1em;*/\n\theight: 3em;\n\toverflow: scroll;\n}\n\n#main #right .book-info-seller {\n\t/*border: 1px solid #ccc;*/\n\theight:     1.5em;\n\tline-height: 1.5em;\n\tmax-height: 1.5em;\n\toverflow:   scroll;\n}", ""]);
-
-	// exports
-
+	module.exports = "manage";
 
 /***/ },
 /* 103 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(104);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(88)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./app.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./app.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
+	module.exports = "setting\n\t<ul>\n\t\t<li v-repeat=\"overlays\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t</ul>\n\t<div v-component=\"{{view.overlay}}\"></div>";
 
 /***/ },
 /* 104 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	exports = module.exports = __webpack_require__(87)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
+	module.exports = "<div class=\"container app\">\n\t\t<ul>\n\t\t\t<li v-repeat=\"routes\" v-on=\"click: goTo($value)\">{{$value}}</li>\n\t\t</ul>\n\t\t<div class=\"header\">\n\t\t\t<span v-if=\"isLogin\" class=\"pull-left\">{{greeting}}</span>\n\t\t\t<span v-on=\"click: goTo('signup')\" class=\"pull-right\">注册</span>\n\t\t\t<span class=\"pull-right\">/</span>\n\t\t\t<span v-on=\"click: goTo('login')\" class=\"pull-right\">登陆</span> \n\t\t\t<span class=\"clearfix\"></span>\n\t\t</div>\n\t\t<div v-component=\"{{view.current_route}}\" class=\"clearfix\"></div>\n\t</div>";
 
 /***/ }
 /******/ ]);

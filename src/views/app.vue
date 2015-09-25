@@ -2,14 +2,19 @@
 
 </style>
 <template>
-	<ul>
-		<li v-repeat="routes" v-on="click: goTo($value)">{{$value}}</li>
-	</ul>
-	<!-- <p>
-		isLogin: {{isLogin}} |
-		username: {{user.username}}
-	</p> -->
-	<div v-component="{{view.current_route}}"></div>
+	<div class="container app">
+		<ul>
+			<li v-repeat="routes" v-on="click: goTo($value)">{{$value}}</li>
+		</ul>
+		<div class="header">
+			<span v-if="isLogin" class="pull-left">{{greeting}}</span>
+			<span v-on="click: goTo('signup')" class="pull-right">注册</span>
+			<span class="pull-right">/</span>
+			<span v-on="click: goTo('login')" class="pull-right">登陆</span> 
+			<span class="clearfix"></span>
+		</div>
+		<div v-component="{{view.current_route}}" class="clearfix"></div>
+	</div>
 </template>
 
 <script>
@@ -24,6 +29,11 @@ module.exports = {
 		isLogin: false,
 		user: {
 			username: '',
+		}
+	},
+	computed: {
+		greeting: function() {
+			return this.user.username + "，欢迎您"
 		}
 	},
 	components: {
