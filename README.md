@@ -8,8 +8,10 @@
 
 ## 用法
 
-`npm install`
+`npm install`安装依赖
 
-`npm run dev`
+`npm run dev`使用webpack构建
+
+`python -m SimpleHTTPServer 9090` 启用静态服务器
 
 visit <http://127.0.0.1:9090>
